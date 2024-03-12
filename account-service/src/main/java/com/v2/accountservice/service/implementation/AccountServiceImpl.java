@@ -146,12 +146,11 @@ public class AccountServiceImpl implements AccountService {
      * of the {@code CustomerRestClient}. If successful, it returns the obtained customer details;
      * otherwise, it logs an error and returns {@code null}.</p>
      *
-     * <p>Author: Brody Gaudel</p>
      *
      * @param customerId The unique identifier of the customer to retrieve.
      * @return The {@code CustomerDTO} containing the customer details, or {@code null} if not found.
      */
-    private @Nullable CustomerDTO getCustomerById(String customerId) {
+    public @Nullable CustomerDTO getCustomerById(String customerId) {
         log.info("In getCustomerById()");
         try{
             CustomerDTO customerDTO = customerRestClient.getById(customerId);

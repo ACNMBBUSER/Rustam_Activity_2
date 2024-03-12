@@ -1,8 +1,8 @@
 package com.v2.transactionservice.entity;
 
 import com.v2.transactionservice.enums.AccountType;
-import com.v2.transactionservice.enums.Action;
 import com.v2.transactionservice.enums.Currency;
+import com.v2.transactionservice.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +23,7 @@ public class Transaction {
     private String id;
 
     @Column(updatable = false, nullable = false)
-    private String accountID;
+    private String accountId;
 
     @Enumerated(EnumType.STRING)
     @Column(updatable = false, nullable = false)
@@ -34,19 +34,16 @@ public class Transaction {
 
     @Enumerated(EnumType.STRING)
     @Column(updatable = false, nullable = false)
-    private Action type;
+    private TransactionType type;
 
     @Column(updatable = false, nullable = false)
-    private BigDecimal debitAmount;
-
-    @Column(updatable = false, nullable = false)
-    private BigDecimal creditAmount;
+    private BigDecimal amount;
 
     @Column(updatable = false, nullable = false)
     private BigDecimal balance;
 
     @Enumerated(EnumType.STRING)
-    @Column(updatable = false, nullable = false)
+    @Column(updatable = false, nullable = true)
     private Currency currency;
 
     @Column(updatable = false, nullable = false)

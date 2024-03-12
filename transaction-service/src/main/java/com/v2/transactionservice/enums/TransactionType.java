@@ -1,5 +1,5 @@
 package com.v2.transactionservice.enums;
 
-public enum Action {
+public enum TransactionType {
         CREDIT, DEBIT
 }

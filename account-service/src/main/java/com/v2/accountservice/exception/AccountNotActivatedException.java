@@ -6,7 +6,6 @@ package com.v2.accountservice.exception;
  * <p>This exception is typically thrown when an attempt is made to perform an action on an
  * account that has not been activated.</p>
  *
- * <p>Author: Brody Gaudel</p>
  */
 public class AccountNotActivatedException extends Exception{
     /**

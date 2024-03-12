@@ -2,7 +2,6 @@ package com.v2.accountservice.service.implementation;
 
 import com.v2.accountservice.dto.CreditDTO;
 import com.v2.accountservice.dto.DebitDTO;
-import com.v2.accountservice.dto.HistoryDTO;
 import com.v2.accountservice.dto.OperationDTO;
 import com.v2.accountservice.entity.Account;
 import com.v2.accountservice.entity.Operation;
@@ -18,14 +17,11 @@ import com.v2.accountservice.service.OperationService;
 import com.v2.accountservice.util.Mappers;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -45,11 +41,6 @@ public class OperationServiceImpl implements OperationService {
     /**
      * Credit funds to an account.
      *
-     * @param creditDTO The credit details.
-     * @return The updated account details after the credit operation.
-     * @throws AccountNotFoundException      If the account for the credit operation is not found.
-     * @throws BalanceNotSufficientException If the account balance is not sufficient for the credit operation.
-     * @throws AccountNotActivatedException  If account status is not set to ACTIVATED
      */
     @Transactional
     @Override
@@ -79,11 +70,6 @@ public class OperationServiceImpl implements OperationService {
     /**
      * Debit funds from an account.
      *
-     * @param debitDTO The debit details.
-     * @return The updated account details after the debit operation.
-     * @throws AccountNotFoundException      If the account for the debit operation is not found.
-     * @throws BalanceNotSufficientException If the account balance is not sufficient for the debit operation.
-     * @throws AccountNotActivatedException  If account status is not set to ACTIVATED
      */
     @Transactional
     @Override
@@ -114,9 +100,6 @@ public class OperationServiceImpl implements OperationService {
     /**
      * Retrieve an operation by its ID.
      *
-     * @param id The ID of the operation to retrieve.
-     * @return The operation details.
-     * @throws OperationNotFoundException If the operation with the given ID is not found.
      */
     @Override
     public OperationDTO getById(String id) throws OperationNotFoundException {
@@ -127,30 +110,4 @@ public class OperationServiceImpl implements OperationService {
         return mappers.fromOperation(operation);
     }
 
-    /**
-     * Retrieve the history of operations for a specific account.
-     *
-     * @param accountId The ID of the account to retrieve the history for.
-     * @param page      The page number for pagination.
-     * @param size      The number of operations per page.
-     * @return The history of operations for the account.
-     * @throws AccountNotFoundException if account not found
-     */
-    @Override
-    public HistoryDTO getHistory(String accountId, int page, int size) throws AccountNotFoundException {
-        log.info("In getHistory() :");
-        Account account = accountRepository.findById(accountId)
-                .orElseThrow( () -> new AccountNotFoundException("account with id '"+accountId+"'not found"));
-
-        Page<Operation> operationPage = operationRepository.findByAccountIdOrderByDateDesc(account.getId(), PageRequest.of(page, size));
-        List<OperationDTO> operationDTOList = operationPage.getContent()
-                .stream()
-                .map(mappers::fromOperation)
-                .toList();
-
-        log.info("history found");
-        return new HistoryDTO(account.getCustomerId(), account.getId(), account.getCurrency(),
-                account.getBalance(), page, operationPage.getTotalPages(), size, operationDTOList
-        );
-    }
 }

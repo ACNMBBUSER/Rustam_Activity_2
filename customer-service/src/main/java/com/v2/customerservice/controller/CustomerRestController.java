@@ -37,19 +37,6 @@ public class CustomerRestController {
         return customerService.getById(id);
     }
 
-    @GetMapping("/all/{page}/{size}")
-    public CustomerPageDTO getAll(@PathVariable(name = "size") int size,
-                                  @PathVariable(name = "page") int page){
-        return customerService.getAll(size, page);
-    }
-
-    @GetMapping("/{page}/{size}/search")
-    public CustomerPageDTO search(@RequestParam(name = "keyword", defaultValue = "") String keyword,
-                                  @PathVariable(name = "size") int size,
-                                  @PathVariable(name = "page") int page){
-        return customerService.search(keyword, page, size);
-    }
-
     @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable String id){
         customerService.deleteById(id);

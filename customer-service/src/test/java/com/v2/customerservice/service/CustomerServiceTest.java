@@ -129,63 +129,6 @@ class CustomerServiceTest {
         assertEquals(customerDTO.firstname(), customer.getFirstname());
     }
 
-    @Test
-    void getAll() {
-        int size = 10;
-        int page = 1;
-
-        List<Customer> fakeCustomers = Arrays.asList(
-                new Customer("1", "John", "Doe", "City", new Date(), "Nationality", Sex.M,
-                        "123456", "john.doe@email.com", "1234567890", LocalDateTime.now(), null),
-                new Customer("2", "Marvin", "Doe", "City", new Date(), "Nationality", Sex.M,
-                        "654321", "marvin.doe@email.com", "9876543210", LocalDateTime.now(), null)
-        );
-
-        Page<Customer> fakePage = new PageImpl<>(fakeCustomers, PageRequest.of(page, size), fakeCustomers.size());
-
-        when(repository.getAllByPage(PageRequest.of(page, size))).thenReturn(fakePage);
-
-        CustomerPageDTO result = service.getAll(size, page);
-        assertEquals(page, result.page());
-        assertEquals(size, result.size());
-        assertEquals(fakePage.getTotalPages(), result.totalPage());
-    }
-
-    @Test
-    void search() {
-        String keyword = "John";
-        int size = 10;
-        int page = 1;
-        String uuid = "1";
-
-        List<Customer> fakeCustomers = Arrays.asList(
-                new Customer("1", "John", "Doe", "City", new Date(), "Nationality", Sex.M,
-                        "123456", "john.doe@email.com", "1234567890", LocalDateTime.now(), null),
-                new Customer("2", "Marvin", "Doe", "City", new Date(), "Nationality", Sex.M,
-                        "654321", "marvin.doe@email.com", "9876543210", LocalDateTime.now(), null)
-        );
-
-        Page<Customer> fakePage = new PageImpl<>(fakeCustomers, PageRequest.of(page, size), fakeCustomers.size());
-
-        List<CustomerDTO> customerDTOS = List.of(
-                new CustomerDTO(
-                        uuid, "John", "Doe", "FRANCE", new Date(),
-                        "Nationality", Sex.M, uuid, uuid, uuid, LocalDateTime.now(), null),
-                new CustomerDTO(
-                        uuid+"1", "John", "Doe", "FRANCE", new Date(),
-                        "Nationality", Sex.M, uuid+"1", uuid+"1", uuid+"1", LocalDateTime.now(), null)
-        );
-        when(repository.searchByFirstnameOrNameOrCin("%"+keyword+"%", PageRequest.of(page, size)))
-                .thenReturn(fakePage);
-        when(mappers.fromListOfCustomers(fakeCustomers)).thenReturn(customerDTOS);
-
-        CustomerPageDTO result = service.search(keyword, page, size);
-
-        assertEquals(page, result.page());
-        assertEquals(size, result.size());
-        assertEquals(fakePage.getTotalPages(), result.totalPage());
-        assertEquals(fakeCustomers.size(), result.customerDTOList().size());
-    }
 
     @Test
     void deleteById() {

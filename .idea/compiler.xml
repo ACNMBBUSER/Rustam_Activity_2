@@ -16,21 +16,17 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="account-service (1)" target="17" />
-      <module name="account-service (2)" target="17" />
-      <module name="transaction" target="17" />
+      <module name="account-service" target="17" />
+      <module name="transaction-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
-      <module name="account-service (1)" options="-parameters" />
-      <module name="account-service (2)" options="-parameters" />
       <module name="auth-service" options="-parameters" />
       <module name="customer-service" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
-      <module name="transaction" options="-parameters" />
       <module name="transaction-service" options="-parameters" />
     </option>
   </component>

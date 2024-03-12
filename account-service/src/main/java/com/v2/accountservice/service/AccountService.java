@@ -9,7 +9,6 @@ import com.v2.accountservice.exception.CustomerNotFoundException;
 /**
  * Service interface for managing accounts.
  *
- * <p>Author: Brody Gaudel</p>
  */
 public interface AccountService {
 

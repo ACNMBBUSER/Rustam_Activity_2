@@ -8,7 +8,6 @@ import com.v2.accountservice.entity.Operation;
 /**
  * This interface defines methods for mapping between entities and their corresponding DTOs.
  *
- * <p>Author: Brody Gaudel</p>
  */
 public interface Mappers {
     /**

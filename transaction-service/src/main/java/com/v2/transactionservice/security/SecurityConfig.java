@@ -25,10 +25,10 @@ public class SecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(@NotNull HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/v2/operations/credit/**").hasAuthority(ADMIN)
-                        .requestMatchers("/v2/operations/debit/**").hasAuthority(ADMIN)
-                        .requestMatchers("/v2/operations/get/**").hasAuthority(ADMIN)
-                        .requestMatchers("/v2/operations/{accountId}/all/**").hasAuthority(ADMIN)
+                        .requestMatchers("/v2/transaction/credit/**").hasAuthority(ADMIN)
+                        .requestMatchers("/v2/transaction/debit/**").hasAuthority(ADMIN)
+                        .requestMatchers("/v2/transaction/get/**").hasAuthority(ADMIN)
+                        .requestMatchers("http://localhost:8886/bank/v2/accounts/get/**").hasAuthority(ADMIN)
                 ).addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

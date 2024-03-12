@@ -11,7 +11,6 @@ public interface OperationRepository extends JpaRepository<Operation,String> {
      * Retrieves a paginated list of {@code Operation} entities associated with the specified account ID,
      * ordered by date in descending order.
      *
-     * <p>Author: Brody Gaudel</p>
      *
      * @param accountId The unique identifier of the account for which operations are to be retrieved.
      * @param pageable  The pagination information for controlling the result size and page number.
