@@ -28,7 +28,6 @@ public class SecurityConfig {
                         .requestMatchers("/v2/customers/save/**").hasAuthority(ADMIN)
                         .requestMatchers("/v2/customers/update/**").hasAuthority(ADMIN)
                         .requestMatchers("/v2/customers/all/**").hasAuthority(ADMIN)
-                        .requestMatchers("/v2/customers/{page}/{size}/search/**").hasAuthority(ADMIN)
                         .requestMatchers("/v2/customers/delete/**").hasAuthority(ADMIN)
                         .requestMatchers("/v2/customers/get/**").permitAll())
                 .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class);
