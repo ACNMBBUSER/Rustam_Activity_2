@@ -2,6 +2,7 @@ package com.v2.accountservice.service;
 
 import com.v2.accountservice.dto.CreditDTO;
 import com.v2.accountservice.dto.DebitDTO;
+import com.v2.accountservice.dto.HistoryDTO;
 import com.v2.accountservice.dto.OperationDTO;
 import com.v2.accountservice.exception.AccountNotActivatedException;
 import com.v2.accountservice.exception.AccountNotFoundException;
@@ -28,13 +29,16 @@ public interface OperationService {
      */
     OperationDTO getById(String id) throws OperationNotFoundException;
 
-    /**
-     * Retrieve the history of operations for a specific account.
-     *
-     * @param accountId The ID of the account to retrieve the history for.
-     * @param page The page number for pagination.
-     * @param size The number of operations per page.
-     * @return The history of operations for the account.
-     * @throws AccountNotFoundException if account not found
-     */
-}
+//    /**
+//     * Retrieve the history of operations for a specific account.
+//     *
+//     * @param accountId The ID of the account to retrieve the history for.
+//     * @param page The page number for pagination.
+//     * @param size The number of operations per page.
+//     * @return The history of operations for the account.
+//     * @throws AccountNotFoundException if account not found
+//     *
+//     */
+
+    HistoryDTO getHistory(String accountId, int page, int size) throws AccountNotFoundException;
+    }

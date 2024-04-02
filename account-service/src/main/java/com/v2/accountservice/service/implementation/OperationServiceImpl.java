@@ -1,5 +1,8 @@
 package com.v2.accountservice.service.implementation;
 
+import com.v2.accountservice.dto.HistoryDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import com.v2.accountservice.dto.CreditDTO;
 import com.v2.accountservice.dto.DebitDTO;
 import com.v2.accountservice.dto.OperationDTO;
@@ -22,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -108,6 +112,24 @@ public class OperationServiceImpl implements OperationService {
                 .orElseThrow( ()  -> new OperationNotFoundException("operation with id '"+id+"' not found"));
         log.info("operation found");
         return mappers.fromOperation(operation);
+    }
+
+    @Override
+    public HistoryDTO getHistory(String accountId, int page, int size) throws AccountNotFoundException {
+        log.info("In getHistory() :");
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow( () -> new AccountNotFoundException("account with id '"+accountId+"'not found"));
+
+        Page<Operation> operationPage = operationRepository.findByAccountIdOrderByDateDesc(account.getId(), PageRequest.of(page, size));
+        List<OperationDTO> operationDTOList = operationPage.getContent()
+                .stream()
+                .map(mappers::fromOperation)
+                .toList();
+
+        log.info("history found");
+        return new HistoryDTO(account.getCustomerId(), account.getId(),
+                account.getBalance(), page, operationPage.getTotalPages(), size, operationDTOList
+        );
     }
 
 }
