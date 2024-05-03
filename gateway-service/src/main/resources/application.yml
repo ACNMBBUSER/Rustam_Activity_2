@@ -16,6 +16,7 @@ spring:
               - "http://localhost:8887"
               - "http://localhost:8886"
               - "http://localhost:8885"
+              - "http://localhost:3000"
             allowedHeaders:
               - Content-Type
               - Authorization
@@ -27,6 +28,8 @@ spring:
               - POST
               - PUT
               - DELETE
+              - OPTIONS
+            allowCredentials: true
 
 eureka:
   instance:

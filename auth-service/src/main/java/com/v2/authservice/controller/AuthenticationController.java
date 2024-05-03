@@ -4,11 +4,13 @@ import com.v2.authservice.dto.AuthenticationRequest;
 import com.v2.authservice.dto.AuthenticationResponse;
 import com.v2.authservice.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 public class AuthenticationController {
 
     private final AuthenticationService service;
